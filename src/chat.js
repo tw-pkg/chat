@@ -1,7 +1,7 @@
 import Chat from '../models/chat.js'
 import dayjs from 'dayjs';
 
-async function getRecord(offset = 0) {
+export async function getRecord(offset = 0) {
     const record = await Chat.findAll({
         attributes: ['summoner', 'message', 'time'],
         order: [
@@ -14,10 +14,7 @@ async function getRecord(offset = 0) {
     return record.reverse();
 }
 
-export default async (io, socket) => {
-    const record = await getRecord();
-    socket.emit('init', record);
-
+export async function registerListeners (io, socket) {
     socket.on('new-message', async (data) => {
         const { summoner, message } = data;
 

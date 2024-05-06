@@ -1,5 +1,5 @@
 import { Server } from 'socket.io';
-import chat from './chat.js'
+import { getRecord, registerListeners } from './chat.js'
 
 const cors = {
   cors: {
@@ -13,6 +13,7 @@ export default (server) => {
   const io = new Server(server, cors);
   const chatIo = io.of('/general-chat');
   chatIo.on('connection', (socket) => {
-    chat(chatIo, socket);
+    getRecord().then(record => socket.emit('init', record));
+    registerListeners(io, socket);
   });
 }
