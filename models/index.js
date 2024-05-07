@@ -1,6 +1,13 @@
-import config from '../config/config.json' assert { type: "json" }
 import { Sequelize } from 'sequelize';
 
-const sequelize = new Sequelize(config.development);
+const config = {
+  username: "lvc",
+  password: "lvc123",
+  database: "chat",
+  host: "db",
+  dialect: "mysql"
+} 
+
+const sequelize = new Sequelize(config);
 
 export default sequelize;
