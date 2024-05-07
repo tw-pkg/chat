@@ -28,7 +28,7 @@ export async function registerListeners (io, socket) {
             ...data,
             time
         }
-        io.emit('message', chat);
+        io.emit('new-message', chat);
 
         await Chat.create({
             summoner: summoner,
@@ -42,7 +42,7 @@ export async function registerListeners (io, socket) {
             const offset = page * 100;
             const record = await getRecord(offset);
 
-            socket.emit('response-before-message', {
+            socket.emit('before-message', {
                 messages: record,
                 isLast: record.length < 100 ? true : false,
             });
