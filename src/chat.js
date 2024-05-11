@@ -19,9 +19,9 @@ export async function registerListeners (io, socket) {
         const { summoner, message } = data;
 
         const time = dayjs()
-        .format('MM/DD ddd hh:mm:ss A')
-        .replace('오전', 'AM')
-        .replace('오후', 'PM')
+        .format('YYYY.MM.DD A hh:mm')
+        .replace('AM', '오전')
+        .replace('PM', '오후')
         .toString();
 
         const chat = {
