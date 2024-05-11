@@ -37,15 +37,17 @@ export async function registerListeners(io, socket) {
         })
     });
 
-    // socket.on('before-message', async (page) => {
-    //     if (page) {
-    //         const offset = page * 100;
-    //         const record = await getRecord(offset);
+    socket.on('before-messages', async (data) => {
+        const { page } = data;
 
-    //         socket.emit('before-message', {
-    //             messages: record,
-    //             isLast: record.length < 100 ? true : false,
-    //         });
-    //     }
-    // })
+        if (page) {
+            const offset = page * 100;
+            const record = await getRecord(offset);
+
+            socket.emit('before-messages', {
+                messages: record,
+                isLast: record.length < 100 ? true : false,
+            });
+        }
+    })
 }
