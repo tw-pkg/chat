@@ -8,7 +8,7 @@ const app = express();
 const port = 8080;
 app.use(cors());
 
-await sequelize.sync({ force: true });
+await sequelize.sync({ alter: true });
 const server = createServer(app);
 
 socket(server);

@@ -14,12 +14,12 @@ const Chat = sequelize.define(
       type: DataTypes.JSON,
       allowNull: false,
     },
-    message: {
+    text: {
       type: DataTypes.STRING(2000),
       allowNull: false,
     },
     time: {
-      type: DataTypes.STRING(20),
+      type: DataTypes.STRING(100),
       allowNull: false,
     }
   },

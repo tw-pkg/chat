@@ -11,9 +11,10 @@ const cors = {
 
 export default (server) => {
   const io = new Server(server, cors);
-  const chatIo = io.of('/general-chat');
+  const chatIo = io.of('/global-chat');
+
   chatIo.on('connection', (socket) => {
     getRecord().then(record => socket.emit('init', record));
-    registerListeners(io, socket);
+    registerListeners(chatIo, socket);
   });
 }
