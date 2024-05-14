@@ -20,4 +20,4 @@ services:
       - MYSQL_ROOT_PASSWORD=lvc
       - MYSQL_DATABASE=chat
       - MYSQL_USER=lvc
-      - MYSQL_PASSWORD=lvc123
+      - MYSQL_PASSWORD=lvc1234
