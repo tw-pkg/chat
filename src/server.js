@@ -8,13 +8,8 @@ const app = express();
 const port = 8080;
 app.use(cors());
 
-app.get('/health', (req, res) => {
-  res.send("success!")
-})
-
-app.post('/github-webhook', (req, res) => {
-  console.log('hooked');
-  res.status(202).send('Accepted');
+app.get('/health', (_, res) => {
+  res.send("success!");
 })
 
 await sequelize.sync({ alter: true });
