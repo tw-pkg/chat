@@ -1,6 +1,8 @@
 import Chat from '../models/chat.js'
 import dayjs from 'dayjs';
 
+const ONE_PAGE_MAX_LIMIT = 100;
+
 export async function getRecord(offset = 0) {
     const record = await Chat.findAll({
         attributes: ['summoner', 'text', 'time'],
@@ -8,7 +10,7 @@ export async function getRecord(offset = 0) {
             ['createdAt', 'DESC']
         ],
         offset: offset,
-        limit: 100
+        limit: ONE_PAGE_MAX_LIMIT
     });
 
     return record.reverse();
@@ -41,12 +43,12 @@ export async function registerListeners(io, socket) {
         const { page } = data;
 
         if (page) {
-            const offset = page * 100;
+            const offset = page * ONE_PAGE_MAX_LIMIT;
             const record = await getRecord(offset);
 
             socket.emit('before-messages', {
                 messages: record,
-                isLast: record.length < 100 ? true : false,
+                isLast: record.length < ONE_PAGE_MAX_LIMIT ? true : false,
             });
         }
     })
