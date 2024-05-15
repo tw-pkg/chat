@@ -12,6 +12,11 @@ app.get('/health', (req, res) => {
   res.send("success!")
 })
 
+app.post('/github-webhook', (req, res) => {
+  console.log('hooked');
+  res.status(202).send('Accepted');
+})
+
 await sequelize.sync({ alter: true });
 const server = createServer(app);
 
