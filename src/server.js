@@ -9,7 +9,7 @@ const port = 8080;
 app.use(cors());
 
 app.get('/health', (_, res) => {
-  res.send("check");
+  res.send("ok");
 })
 
 await sequelize.sync({ alter: true });
