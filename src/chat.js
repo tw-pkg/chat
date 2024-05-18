@@ -1,5 +1,11 @@
 import Chat from '../models/chat.js'
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc.js'
+import timezone from 'dayjs/plugin/timezone.js'
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.tz.setDefault('Asia/Seoul');
 
 const ONE_PAGE_MAX_LIMIT = 100;
 
@@ -21,6 +27,7 @@ export async function registerListeners(io, socket) {
         const { summoner, text } = data;
 
         const time = dayjs()
+            .tz()
             .format('YYYY.MM.DD A hh:mm')
             .replace('AM', '오전')
             .replace('PM', '오후')
@@ -48,7 +55,7 @@ export async function registerListeners(io, socket) {
 
             socket.emit('before-messages', {
                 messages: record,
-                isLast: record.length < ONE_PAGE_MAX_LIMIT ? true : false,
+                isLast: record.length < ONE_PAGE_MAX_LIMIT,
             });
         }
     })
